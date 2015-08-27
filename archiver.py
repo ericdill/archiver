@@ -4,6 +4,10 @@ import logging
 from channelarchiver import Archiver
 from datetime import datetime
 
+from _version import get_versions
+__version__ = get_versions()['version']
+del get_versions
+
 logger = logging.getLogger(__name__)
 
 
@@ -60,16 +64,16 @@ def load_configuration(name, prefix, fields):
                        "file or environmental variable.".format(missing))
     return config
 
-connection_config = load_configuration('archiver', 'ARCH',
-                                       ['url', 'pv_dict'])
-
-# create a module level instance of the archiver
-archiver = Archiver(connection_config['url'])
-# scan the archiver on import to speed up data retrieval later
-archiver.scan_archives()
-
-# grab the pv dict from the connection config
-pv_dict = connection_config['pv_dict']
+# connection_config = load_configuration('archiver', 'ARCH',
+#                                        ['url', 'pv_dict'])
+#
+# # create a module level instance of the archiver
+# archiver = Archiver(connection_config['url'])
+# # scan the archiver on import to speed up data retrieval later
+# archiver.scan_archives()
+#
+# # grab the pv dict from the connection config
+# pv_dict = connection_config['pv_dict']
 
 
 def get(pv, t0=None, t1=None, **kwargs):
