@@ -2,8 +2,11 @@
 
 import setuptools
 from distutils.core import setup
-import versioneer
 import os
+import versioneer
+import archiver
+
+__version__ = versioneer.get_versions(archiver.cfg, archiver.__file__)['version']
 
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
@@ -14,9 +17,9 @@ def read(fname):
 
 setup(
     name='archiver',
-    version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    version=__version__,
     author='Brookhaven National Lab',
     url='http://github.com/ericdill/archiver',
+    py_modules=['archiver'],
     license='BSD',
     )

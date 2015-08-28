@@ -1,15 +1,27 @@
+from __future__ import absolute_import
 import os
 import yaml
 import logging
 from channelarchiver import Archiver
 from datetime import datetime
 
-from _version import get_versions
-__version__ = get_versions()['version']
-del get_versions
-
 logger = logging.getLogger(__name__)
 
+class VersioneerConfig:
+    pass
+    
+cfg = VersioneerConfig()
+cfg.VCS = "git"
+cfg.style = "pep440"
+cfg.tag_prefix = "v"
+cfg.parentdir_prefix = None
+cfg.versionfile_source = "archiver/"
+cfg.verbose = True
+cfg.root = os.path.join(*__file__.split(os.sep)[:-1])
+
+import versioneer
+print('file = %s' % __file__)
+__version__ = versioneer.get_versions(cfg, __file__)['version']
 
 def load_configuration(name, prefix, fields):
     """
